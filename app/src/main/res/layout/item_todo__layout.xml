@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.todoapp.data.model.Todo" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.todoapp.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <CheckBox
+            android:id="@+id/is_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="CheckBox"
+            android:checked="@{item.active}"
+            app:layout_constraintBottom_toTopOf="@+id/todo_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/todo_title"
+            android:layout_width="124dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            android:checked="@{item.title}"
+            app:layout_constraintBottom_toTopOf="@+id/todo_description"
+            app:layout_constraintStart_toEndOf="@+id/is_active"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/todo_description"
+            android:layout_width="0dp"
+            android:layout_height="51dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/is_active" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

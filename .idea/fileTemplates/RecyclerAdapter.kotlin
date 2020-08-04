@@ -1,0 +1,52 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME}#end
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+
+
+class ${NAME}(private val viewModel: ${VIEWMODEL}) :
+    ListAdapter<${ITEM}, ${NAME}.ViewHolder>(${ITEM}DiffCallback()) {
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(viewModel, getItem(position))
+    }
+
+    class ViewHolder private constructor(private val binding: ${ITEMBINDING}) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(viewModel: ${VIEWMODEL}, item: ${ITEM}) {
+            binding.item = item
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val inflator = LayoutInflater.from(parent.context)
+                val binding = ${ITEMBINDING}.inflate(inflator, parent, false)
+                binding.lifecycleOwner = parent.context as LifecycleOwner
+                return ViewHolder(binding)
+            }
+        }
+
+    }
+
+    private class ${ITEM}DiffCallback : DiffUtil.ItemCallback<${ITEM}>() {
+        override fun areItemsTheSame(oldItem: ${ITEM}, newItem: ${ITEM}): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ${ITEM}, newItem: ${ITEM}): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+}
