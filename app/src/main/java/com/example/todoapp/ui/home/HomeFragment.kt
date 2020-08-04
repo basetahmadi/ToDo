@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.todo.ui.home.TodoAdapter
 import com.example.todoapp.R
 import com.example.todoapp.data.local.TodoDatabase
 import com.example.todoapp.databinding.FragmentHomeBinding
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -41,6 +44,10 @@ class HomeFragment : Fragment() {
         binding.viewmodel = homeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         setupRecyclerView()
+
+        binding.fab.setOnClickListener{
+            findNavController().navigate(R.id.action_nav_home_to_nav_new_todo)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -51,7 +58,7 @@ class HomeFragment : Fragment() {
         with(binding.todoList){
             val itemDecoration = DividerItemDecoration(
                 context,
-                (layoutManager as LinearLayout).orientation
+                (layoutManager as LinearLayoutManager).orientation
             )
             addItemDecoration(itemDecoration)
         }
